@@ -1,38 +1,30 @@
 name: Build and push a docker container
 
 on:
-  # Allow manual triggering of this workflow
-  workflow_dispatch:
-
-  # Trigger on pull requests to 'development' if the Dockerfile changes
-  pull_request:
-    branches: [ "development" ]
-    paths:
-      - 'Dockerfile'
-
-  # Trigger on pushes to 'development' and 'aws-batch-testing' if the Dockerfile changes
+  # Run whenever there's a push to the 'development' branch
   push:
-    branches: 
-      - "development"
-      - "aws-batch-testing"
-    paths:
-      - 'Dockerfile'
+    branches:
+      - development
+
+  # Allow manual triggering from the Actions tab
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
+  # Adjust this to match your preferred image name
   IMAGE: ghcr.io/${{ github.repository }}/mlops_dtu_2025_project7
 
 jobs:
-  push-env-subst-docker-image:
+  build-and-push-docker-image:
     name: Build and push docker image
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
-      id-token: write
+      contents: read       # needed to checkout code
+      packages: write      # needed to push to GHCR
+      id-token: write      # (optional) if you need OIDC later, can keep or remove
 
     steps:
-      - name: Check out the right commit
+      - name: Check out code
         uses: actions/checkout@v4
 
       - name: Log into registry ${{ env.REGISTRY }}
@@ -54,7 +46,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          # Point to the folder containing your code, typically '.'
           context: .
+          # Use the custom Dockerfile path
+          file: dockerfiles/train.dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
