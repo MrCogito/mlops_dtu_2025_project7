@@ -40,7 +40,12 @@ Afterwards we may also use the Pytorch Image Models (TIMM) framework to work wit
 
 **Train with docker**
 
-To build training docker container: 
+To get latest docker image from ghrc run:
+```bash
+docker pull ghcr.io/mlops-dtu-group7-2025/mlops_dtu_2025_project7/mlops_dtu_2025_project7:latest
+```
+
+To build docker image locally run: 
 
 ```bash
 docker build -t mlops-floods -f dockerfiles/train.dockerfile .
