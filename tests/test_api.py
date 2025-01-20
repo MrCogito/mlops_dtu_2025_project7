@@ -1,6 +1,6 @@
 import pytest
 from httpx import AsyncClient
-from app import app  # Replace `app` with your FastAPI app filename if different
+from app import main  # Replace `app` with your FastAPI app filename if different
 
 @pytest.mark.asyncio
 async def test_root_endpoint():
