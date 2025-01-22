@@ -36,3 +36,28 @@ Frameworks and models
 We intend to use the timeseriesAI (tsAI) framework to work with the time series data. It contains different models such as LSTM and ResNet, which we intend to use.
 
 Afterwards we may also use the Pytorch Image Models (TIMM) framework to work with the images in the dataset. 
+
+
+**Train with docker**
+
+To get latest docker image from ghrc run:
+```bash
+docker pull ghcr.io/mlops-dtu-group7-2025/mlops_dtu_2025_project7/mlops_dtu_2025_project7:latest
+```
+
+To build docker image locally run: 
+
+```bash
+docker build -t mlops-floods -f dockerfiles/train.dockerfile .
+```
+Set wandb API key: 
+```bash
+export WANDB_API_KEY=your_wandb_api_key
+```
+Run docker container with mounted data dir:
+```bash
+docker run --rm \
+  -e WANDB_API_KEY="$WANDB_API_KEY" \
+  -v "$(pwd)/data:/data" \
+  mlops-floods
+```

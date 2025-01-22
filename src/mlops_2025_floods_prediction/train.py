@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import accuracy_score, roc_auc_score
 
 import torch
 import torch.nn as nn
@@ -12,12 +11,28 @@ import wandb
 import hydra
 from omegaconf import DictConfig
 
+from logging_util import setup_logging
+import logging
+
+# Setup logging
+setup_logging()
+
+# Create a logger for this module
+logger = logging.getLogger(__name__)
+
+logger.info("Starting the training script.")
+logger.debug("Debug information about the dataset.")
+logger.warning("Potential issue detected.")
+logger.error("An error occurred.")
+logger.critical("Critical issue! Immediate attention required.")
+
 # Hydra config decorator
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg: DictConfig):
     # Initialize W&B using Hydra config
     wandb.init(
         project=cfg.wandb.project,
+        entity=cfg.wandb.entity,
         config={
             "architecture": cfg.model.architecture,
             "batch_size": cfg.training.batch_size,
@@ -25,7 +40,7 @@ def main(cfg: DictConfig):
             "learning_rate": cfg.training.learning_rate,
             "sequence_length": cfg.training.sequence_length,
             "hidden_size": cfg.model.hidden_size,
-        }
+        },
     )
 
     # Get the absolute path of the folder where the script is located
@@ -41,13 +56,17 @@ def main(cfg: DictConfig):
     train_data = pd.read_csv(train_file_path)
 
     # Process event IDs and timestamps
-    train_data['event_id'] = train_data['event_id'].apply(lambda x: '_'.join(x.split('_')[:2]))
-    train_data['event_idx'] = train_data.groupby('event_id', sort=False).ngroup()
-    test_data['event_id'] = test_data['event_id'].apply(lambda x: '_'.join(x.split('_')[:2]))
-    test_data['event_idx'] = test_data.groupby('event_id', sort=False).ngroup()
+    train_data["event_id"] = train_data["event_id"].apply(
+        lambda x: "_".join(x.split("_")[:2])
+    )
+    train_data["event_idx"] = train_data.groupby("event_id", sort=False).ngroup()
+    test_data["event_id"] = test_data["event_id"].apply(
+        lambda x: "_".join(x.split("_")[:2])
+    )
+    test_data["event_idx"] = test_data.groupby("event_id", sort=False).ngroup()
 
-    train_data['event_t'] = train_data.groupby('event_id').cumcount()
-    test_data['event_t'] = test_data.groupby('event_id').cumcount()
+    train_data["event_t"] = train_data.groupby("event_id").cumcount()
+    test_data["event_t"] = test_data.groupby("event_id").cumcount()
 
     # Sort data by event and time
     train_df = train_data.sort_values(by=["event_id", "event_t"])
@@ -62,7 +81,7 @@ def main(cfg: DictConfig):
         labels = group["label"].values
 
         for i in range(len(precip_values) - sequence_length):
-            X_train.append(precip_values[i:i + sequence_length])
+            X_train.append(precip_values[i : i + sequence_length])
             y_train.append(labels[i + sequence_length - 1])
 
     X_train = np.array(X_train)
@@ -81,13 +100,22 @@ def main(cfg: DictConfig):
 
     # Create DataLoader
     batch_size = cfg.training.batch_size
-    train_loader = DataLoader(TensorDataset(X_train_tensor, y_train_tensor), batch_size=batch_size, shuffle=True)
+    train_loader = DataLoader(
+        TensorDataset(X_train_tensor, y_train_tensor),
+        batch_size=batch_size,
+        shuffle=True,
+    )
 
     # Define LSTM Model
     class LSTMModel(nn.Module):
         def __init__(self):
             super(LSTMModel, self).__init__()
-            self.lstm = nn.LSTM(input_size=1, hidden_size=cfg.model.hidden_size, num_layers=cfg.model.num_layers, batch_first=True)
+            self.lstm = nn.LSTM(
+                input_size=1,
+                hidden_size=cfg.model.hidden_size,
+                num_layers=cfg.model.num_layers,
+                batch_first=True,
+            )
             self.fc = nn.Linear(cfg.model.hidden_size, 1)
             self.sigmoid = nn.Sigmoid()
 
@@ -127,7 +155,7 @@ def main(cfg: DictConfig):
         precip_values = group["precipitation"].values
 
         for i in range(len(precip_values) - sequence_length):
-            X_test.append(precip_values[i:i + sequence_length])
+            X_test.append(precip_values[i : i + sequence_length])
 
     X_test = np.array(X_test)
     X_test = scaler.transform(X_test.reshape(-1, 1)).reshape(X_test.shape)
@@ -140,8 +168,8 @@ def main(cfg: DictConfig):
         test_predictions = model(X_test_tensor.unsqueeze(-1)).squeeze().numpy()
 
     # Save predictions
-    test_df = test_df.iloc[:len(test_predictions)]
-    test_df['flood_probability'] = test_predictions
+    test_df = test_df.iloc[: len(test_predictions)]
+    test_df["flood_probability"] = test_predictions
     test_df.to_csv(cfg.paths.predictions_output, index=False)
     print(f"Predictions saved to {cfg.paths.predictions_output}")
 
@@ -154,3 +182,7 @@ def main(cfg: DictConfig):
 
     # Finish W&B logging
     wandb.finish()
+
+
+if __name__ == "__main__":
+    main()
