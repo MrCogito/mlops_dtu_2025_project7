@@ -4,6 +4,7 @@ import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sklearn.preprocessing import MinMaxScaler
+from train import LSTMModel
 
 # FastAPI app initialization
 app = FastAPI()
