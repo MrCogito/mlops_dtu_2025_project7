@@ -11,7 +11,7 @@ import wandb
 import hydra
 from omegaconf import DictConfig
 
-from logging_util import setup_logging
+from src.mlops_2025_floods_prediction.logging_util import setup_logging
 import logging
 
 # Setup logging
@@ -26,6 +26,27 @@ logger.warning("Potential issue detected.")
 logger.error("An error occurred.")
 logger.critical("Critical issue! Immediate attention required.")
 
+
+
+# Define LSTM Model
+class LSTMModel(nn.Module):
+    def __init__(self):
+        super(LSTMModel, self).__init__()
+        self.lstm = nn.LSTM(
+            input_size=1,
+            hidden_size=cfg.model.hidden_size,
+            num_layers=cfg.model.num_layers,
+            batch_first=True,
+        )
+        self.fc = nn.Linear(cfg.model.hidden_size, 1)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        x, _ = self.lstm(x)
+        x = x[:, -1, :]  # Output of the last timestep
+        x = self.fc(x)
+        return self.sigmoid(x)
+        
 # Hydra config decorator
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg: DictConfig):
@@ -105,25 +126,6 @@ def main(cfg: DictConfig):
         batch_size=batch_size,
         shuffle=True,
     )
-
-    # Define LSTM Model
-    class LSTMModel(nn.Module):
-        def __init__(self):
-            super(LSTMModel, self).__init__()
-            self.lstm = nn.LSTM(
-                input_size=1,
-                hidden_size=cfg.model.hidden_size,
-                num_layers=cfg.model.num_layers,
-                batch_first=True,
-            )
-            self.fc = nn.Linear(cfg.model.hidden_size, 1)
-            self.sigmoid = nn.Sigmoid()
-
-        def forward(self, x):
-            x, _ = self.lstm(x)
-            x = x[:, -1, :]  # Output of the last timestep
-            x = self.fc(x)
-            return self.sigmoid(x)
 
     model = LSTMModel()
     criterion = nn.BCELoss()
