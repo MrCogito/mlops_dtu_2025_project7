@@ -204,6 +204,11 @@ These changes allowed us to maintain a clean and modular structure, making the p
 >
 > Answer:
 
+We used flake8 for linting to ensure adherence to Python's best practices and to catch common errors, such as unused imports or undefined variables. For code formatting, we followed PEP8 standards and utilized Black as a pre-commit hook to enforce consistent formatting across the project automatically. This ensures that all code remains clean, readable, and standardized.
+
+These ideas guarantee maintainability, scalability, and seamless cooperation, which makes them essential for larger projects. Linting, for example, avoids logical and stylistic mistakes, and uniform formatting speeds up code reviews and gets rid of style arguments.
+
+
 --- question 6 fill here ---
 
 ## Version control
@@ -253,6 +258,11 @@ These changes allowed us to maintain a clean and modular structure, making the p
 >
 > Answer:
 
+We used branches and pull requests (PRs) to manage our workflow. Each team member worked on their own feature branch to keep changes separate from the main branch. This allowed us to develop and test without disrupting the stable codebase. When a feature was ready, we opened a PR to merge it into the main branch.
+PRs acted as checkpoints for code review, feedback, and ensuring adherence to project standards. Our CI/CD pipeline ran tests and linting checks on every PR and push, helping us catch issues early and maintain code quality.
+This workflow enabled parallel development, reduced conflicts, ensured through code reviews, and kept the main branch stable, enhancing collaboration and reliability.
+
+
 --- question 9 fill here ---
 
 ### Question 10 (Samyak)
@@ -284,6 +294,17 @@ These changes allowed us to maintain a clean and modular structure, making the p
 > *here: <weblink>*
 >
 > Answer:
+
+In order to automate important parts of our code quality assurance, we have consolidated our continuous integration (CI) into a single, all-inclusive GitHub Actions process. To guarantee the stability of our project, this workflow—which is specified in the ci.yml file—focuses on unit testing, linting, and cross-environment testing.
+
+Our CI setup runs tests across multiple operating systems (ubuntu-latest, windows-latest, and macos-latest) to verify compatibility. We also test our code with multiple Python versions (3.8, 3.9, and 3.10) and PyTorch versions (1.13.1 and 2.0.0) using a matrix strategy. This ensures that our project remains functional in diverse environments, which is especially important for collaborative projects or deployments in varying conditions.
+
+We also use flake8 for linting in order to enforce Python code standards and identify possible problems early. Both are carried out as part of the procedure, and Black is used to ensure uniform code formatting. To make sure our code works as intended, code coverage checks are conducted alongside unit tests.
+
+To optimize performance, we make use of caching for Python dependencies (pip) based on the hash of the requirements.txt file. This reduces the runtime of CI jobs by avoiding redundant installations of unchanged dependencies.
+
+An example of a triggered workflow can be seen here: https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/blob/main/.github/workflows/ci.yml
+
 
 --- question 11 fill here ---
 
@@ -374,6 +395,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+Our group had different ways of debugging. Some used print statements to find errors, while others used tools like pdb or IDE debuggers (e.g., PyCharm). We also looked at error messages and stack traces to fix issues. To check performance, we used cProfile and found that data preprocessing could be improved. The code runs well overall, but more profiling could help us make training and I/O tasks faster.
+
+
 --- question 16 fill here ---
 
 ## Working in the cloud
@@ -391,6 +415,14 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+In our project, we attempted to leverage the following GCP services:
+Cloud Storage (Bucket): Large datasets may be managed and stored using cloud storage (Bucket). It offered training files and data preparation safe, scalable storage.
+Vertex AI: Machine learning models are created, trained, and implemented using Vertex AI. With integrated tools for model optimisation and experimentation, it expedited the development process.
+Cloud Endpoints (API): Our REST APIs are hosted and managed by cloud endpoints (API), which provide scalability and security while facilitating smooth communication between frontend and backend applications.
+
+Other services we tried: compute, dataflow, notebooks, visionai, artifactregistry, datacatalog, dataform, aiplatform, dataplex.
+
+
 --- question 17 fill here ---
 
 ### Question 18 (Kazi)
@@ -406,6 +438,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+We intended to use GCP's Compute Engine to run our workloads but were unable to configure the setup successfully. Despite our efforts, we couldn’t deploy the required virtual machine instances or complete the setup for our project.
+
+
 --- question 18 fill here ---
 
 ### Question 19 (Kazi)
@@ -414,6 +449,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
+
+![](figures/bucket-1.png "GCP Bucket")
+![](figures/bucket-2.png "GCP Bucket")
 
 --- question 19 fill here ---
 
@@ -424,6 +462,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+We were unable to configure the GCP Artifact Registry setup and, as a result, did not store any Docker images.
+
+
 --- question 20 fill here ---
 
 ### Question 21 (Kazi)
@@ -432,6 +473,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
+
+We were unable to configure the GCP cloud build setup and, as a result, did not store any Docker images.
+
 
 --- question 21 fill here ---
 
