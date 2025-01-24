@@ -597,7 +597,7 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 >
 > Answer:
 
-Yes, we wrote the API for our model using /textbf{FastAPI} to carry out inferences. This API loads a trained model once on startup. That means, by the time somebody wants to make a prediction, it has finished loading and will not delay further. It has a `/predict` endpoint where a user can input the precipitation sequence and get flood probabilities. Here, it checks for proper input by defining a Pydantic model to ensure correctly formatted inputs and avoid errors in inference.
+Yes, we wrote the API for our model using FastAPI to carry out inferences. This API loads a trained model once on startup. That means, by the time somebody wants to make a prediction, it has finished loading and will not delay further. It has a `/predict` endpoint where a user can input the precipitation sequence and get flood probabilities. Here, it checks for proper input by defining a Pydantic model to ensure correctly formatted inputs and avoid errors in inference.
 
 We applied pre-processing using a saved MinMaxScaler to keep the data consistent with that used in training. It also has a root endpoint, indicating whether the service is running. This allows the model to be very easily tested and used for making predictions while keeping deployment as simple and lightweight as possible.
 
@@ -618,7 +618,7 @@ We applied pre-processing using a saved MinMaxScaler to keep the data consistent
 >
 > Answer:
 
-Yes, we have been able to deploy our API on our localhost. We wrapped our model in a service capable of receiving requests for inference using /textbf{FastAPI}. We deployed locally by using Uvicorn, a lightweight ASGI server, running the application on a specified host and port. That allowed us to test all the API functionalities on our machine just by sending requests-for example, using Postman or even `curl`.
+Yes, we have been able to deploy our API on our localhost. We wrapped our model in a service capable of receiving requests for inference using FastAPI. We deployed locally by using Uvicorn, a lightweight ASGI server, running the application on a specified host and port. That allowed us to test all the API functionalities on our machine just by sending requests-for example, using Postman or even `curl`.
 
 To call the service, for example, one would need to send a `POST` request to `/predict` with a JSON body specifying the precipitation sequence. The API will then handle the request by running the model and returning the output-the probability of a flood.
 
