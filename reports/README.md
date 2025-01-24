@@ -739,6 +739,8 @@ Another challenge was configuring Hydra for dynamic configuration management, fo
 
 Another challenge was setting up the FastAPI app for inference: loading a trained model and doing input validation. Carefully making sure that the input preprocessing was exactly like during training, and testing the endpoints with pytest using httpx. Testing iteratively, consulting the documentation forth and back, is how we broke through them in no time.
 
+Another challange was setting up permission to Github action that was pushing Docker images to GHRC. We did it by searching for solution in official documentation and blogs. 
+
 ### Question 31
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
@@ -759,3 +761,7 @@ Another challenge was setting up the FastAPI app for inference: loading a traine
 Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit testing for the API, Continuous Integration and the report.
 Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
 Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.
+Student s230208 worked on initial GitHub repository and organization setup, cookie cutter, Unit testing for model and data, Docker containers and Github actions with GHCR and the report 
+
+All members contributed to the designing architecture of our ML project. 
+We have used ChatGPT and other LLM to help write and debug parts of code. 
