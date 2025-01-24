@@ -640,7 +640,9 @@ That has not been done here, but one can also deploy this API into a cloud platf
 >
 > Answer:
 
+We performed unit testing of the API with `pytest` and `httpx`. The unit tests included the correctness of the API by testing the endpoints, such as `/` and `/predict`. We have conducted a test regarding the `/` endpoint to return `200` as the status code with a welcome message. Similarly, the `/predict` endpoint was tested whether for valid sequences, it returns a flood probability between `0` and `1` as expected.
 
+But we have not carried out any kind of load testing. We could use something like `locust` or `k6` to fake several concurrent users hitting this API and observing how it supports that type of load, which would address response time, throughput, and stability for realistic usage.
 
 --- question 25 fill here ---
 
