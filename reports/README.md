@@ -392,8 +392,10 @@ As such, every time an experiment is run, the following is performed:
 Now, reproducing an experiment only entails the following:
 •	See on W&B what config and code version have been logged.
 •	Download the corresponding configuration file.
-•	Run the script again using the saved config.  >> python train.py --config-name=config.yaml
-
+•	Run the script again using the saved config.  
+```
+python train.py --config-name=config.yaml
+```
 
 --- question 13 fill here ---
 
