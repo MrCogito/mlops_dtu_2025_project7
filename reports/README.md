@@ -654,6 +654,23 @@ We implemented a frontend for our API using Streamlit. This was done to provide 
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
+> 
+
+![](figures/diagram.png "Diagram")
+
+The starting point for a developer working on the project is the Dev branch. For developing machine learning code, we use the tsai framework. Whenever a developer creates a pull request after committing and pushing changes to the local branch, it auto-triggers GitHub Actions to check linting and code formatting. If all tests pass, another contributor reviews the changes. Once the pull request is approved, the changes can be merged from the feature branch into the main branch. This merge auto-triggers a GitHub Action that builds a Docker image based on the latest version of the repository and pushes it to the organization's GitHub Container Registry.
+
+The developer also pushes data from the source (Kaggle, in our case) to a Google Bucket and versions it using DVC.
+
+When running experiments, Hydra is used to define the experiment configuration and model parameters, and WANDB is set up to track metrics. The training job, with the correct configuration, is sent to an HPC, local machine, or cloud environment, where it is run on data pulled from the Google Bucket.
+
+Once the model is trained and performs better than the currently deployed one, a container for inference is built. This container includes the backend, frontend, and model. After deployment, Google Monitoring is used for application monitoring.
+
+Users can pull the image from the GitHub Container Registry to run the container and perform custom experiments. Additionally, users have the option to clone the repository. End-users can also send requests to the deployed API to run inference on their data.
+
+
+
+
 
 --- question 29 fill here ---
 
