@@ -757,6 +757,6 @@ Another challenge was setting up the FastAPI app for inference: loading a traine
 > Answer:
 
 
-Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit and load testing for the API, Continuous Integration and the report.
+Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit and load testing for the API, Continuous Integration and the report, also used ChatGPT for some help with writing the code.
 Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
 Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.
