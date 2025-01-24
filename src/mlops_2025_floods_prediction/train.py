@@ -10,43 +10,24 @@ from torch.utils.data import DataLoader, TensorDataset
 import wandb
 import hydra
 from omegaconf import DictConfig
+import sys
 
+# Get the absolute path to the project root (mlops_dtu_2025_project7)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, '../..'))
+sys.path.insert(0, project_root)
+
+# Now import your modules
 from src.mlops_2025_floods_prediction.logging_util import setup_logging
 import logging
 
+# tsai imports
+from tsai.models.RNN import LSTM as tsai_LSTM
+
 # Setup logging
 setup_logging()
-
-# Create a logger for this module
 logger = logging.getLogger(__name__)
 
-logger.info("Starting the training script.")
-logger.debug("Debug information about the dataset.")
-logger.warning("Potential issue detected.")
-logger.error("An error occurred.")
-logger.critical("Critical issue! Immediate attention required.")
-
-
-
-# Define LSTM Model
-class LSTMModel(nn.Module):
-    def __init__(self):
-        super(LSTMModel, self).__init__()
-        self.lstm = nn.LSTM(
-            input_size=1,
-            hidden_size=cfg.model.hidden_size,
-            num_layers=cfg.model.num_layers,
-            batch_first=True,
-        )
-        self.fc = nn.Linear(cfg.model.hidden_size, 1)
-        self.sigmoid = nn.Sigmoid()
-
-    def forward(self, x):
-        x, _ = self.lstm(x)
-        x = x[:, -1, :]  # Output of the last timestep
-        x = self.fc(x)
-        return self.sigmoid(x)
-        
 # Hydra config decorator
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg: DictConfig):
@@ -64,11 +45,8 @@ def main(cfg: DictConfig):
         },
     )
 
-    # Get the absolute path of the folder where the script is located
-    script_dir = os.getcwd()
-    raw_folder = os.path.join(script_dir, cfg.paths.raw_folder)
-
-    # File paths
+    # Path configurations
+    raw_folder = os.path.join(project_root, cfg.paths.raw_folder)
     train_file_path = os.path.join(raw_folder, cfg.paths.train_file)
     test_file_path = os.path.join(raw_folder, cfg.paths.test_file)
 
@@ -77,17 +55,10 @@ def main(cfg: DictConfig):
     train_data = pd.read_csv(train_file_path)
 
     # Process event IDs and timestamps
-    train_data["event_id"] = train_data["event_id"].apply(
-        lambda x: "_".join(x.split("_")[:2])
-    )
-    train_data["event_idx"] = train_data.groupby("event_id", sort=False).ngroup()
-    test_data["event_id"] = test_data["event_id"].apply(
-        lambda x: "_".join(x.split("_")[:2])
-    )
-    test_data["event_idx"] = test_data.groupby("event_id", sort=False).ngroup()
-
-    train_data["event_t"] = train_data.groupby("event_id").cumcount()
-    test_data["event_t"] = test_data.groupby("event_id").cumcount()
+    for df in [train_data, test_data]:
+        df["event_id"] = df["event_id"].apply(lambda x: "_".join(x.split("_")[:2]))
+        df["event_idx"] = df.groupby("event_id", sort=False).ngroup()
+        df["event_t"] = df.groupby("event_id").cumcount()
 
     # Sort data by event and time
     train_df = train_data.sort_values(by=["event_id", "event_t"])
@@ -112,9 +83,6 @@ def main(cfg: DictConfig):
     scaler = MinMaxScaler()
     X_train = scaler.fit_transform(X_train.reshape(-1, 1)).reshape(X_train.shape)
 
-    print(f"Training sequences shape: {X_train.shape}")
-    print(f"Training labels shape: {y_train.shape}")
-
     # Convert data to PyTorch tensors
     X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
     y_train_tensor = torch.tensor(y_train, dtype=torch.float32)
@@ -127,20 +95,28 @@ def main(cfg: DictConfig):
         shuffle=True,
     )
 
-    model = LSTMModel()
+    # Initialize tsai LSTM model with sigmoid activation
+    model = nn.Sequential(
+        tsai_LSTM(c_in=1, 
+                 c_out=1, 
+                 hidden_size=cfg.model.hidden_size,
+                 n_layers=cfg.model.num_layers),
+        nn.Sigmoid()
+    )
+
     criterion = nn.BCELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.training.learning_rate)
 
     # Training Loop
     epochs = cfg.training.epochs
-
     for epoch in range(epochs):
         model.train()
         running_loss = 0.0
 
         for X_batch, y_batch in train_loader:
             optimizer.zero_grad()
-            outputs = model(X_batch.unsqueeze(-1))
+            # Reshape input for tsai LSTM: [batch_size, 1, sequence_length]
+            outputs = model(X_batch.unsqueeze(1))
             loss = criterion(outputs.squeeze(), y_batch)
             loss.backward()
             optimizer.step()
@@ -152,10 +128,8 @@ def main(cfg: DictConfig):
 
     # Prepare test sequences
     X_test = []
-
     for event_id, group in test_df.groupby("event_id"):
         precip_values = group["precipitation"].values
-
         for i in range(len(precip_values) - sequence_length):
             X_test.append(precip_values[i : i + sequence_length])
 
@@ -165,26 +139,19 @@ def main(cfg: DictConfig):
     # Predict on test data
     X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
     model.eval()
-
     with torch.no_grad():
-        test_predictions = model(X_test_tensor.unsqueeze(-1)).squeeze().numpy()
+        test_predictions = model(X_test_tensor.unsqueeze(1)).squeeze().numpy()
 
     # Save predictions
     test_df = test_df.iloc[: len(test_predictions)]
     test_df["flood_probability"] = test_predictions
     test_df.to_csv(cfg.paths.predictions_output, index=False)
-    print(f"Predictions saved to {cfg.paths.predictions_output}")
 
-    # Log predictions to W&B
+    # Log artifacts and finish
     wandb.save(cfg.paths.predictions_output)
-
-    # Save the model
     torch.save(model.state_dict(), cfg.paths.model_output)
     wandb.save(cfg.paths.model_output)
-
-    # Finish W&B logging
     wandb.finish()
-
 
 if __name__ == "__main__":
     main()
