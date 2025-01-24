@@ -91,7 +91,7 @@ will check the repositories and the code to verify your answers.
 * [x] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23) (3.Kazi )
 * [x] Write API tests for your application and setup continues integration for these (M24)
-* [ ] Load test your application (M24) (5. )
+* [x] Load test your application (M24)
 * [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25) (5.Samyak )
 * [x] Create a frontend for your API (M26)
 
@@ -632,7 +632,8 @@ That has not been done here, but one can also deploy this API into a cloud platf
 
 We performed unit testing of the API with `pytest` and `httpx`. The unit tests included the correctness of the API by testing the endpoints, such as `/` and `/predict`. We have conducted a test regarding the `/` endpoint to return `200` as the status code with a welcome message. Similarly, the `/predict` endpoint was tested whether for valid sequences, it returns a flood probability between `0` and `1` as expected.
 
-But we have not carried out any kind of load testing. We could use something like `locust` or `k6` to fake several concurrent users hitting this API and observing how it supports that type of load, which would address response time, throughput, and stability for realistic usage.
+Apart from unit testing, we have done load testing using Locust. Locust enables us to simulate hundreds of simultaneous users bombarding the API to basically test API's behavior under load: response time test, throughput, and stability, to make sure API can serve real-world use cases effectively. A load test script simulates user interactions with both the `/` and `/predict` endpoints, making it easy to see performance metrics under loads of various sizes.
+
 
 --- question 25 fill here ---
 
@@ -756,6 +757,6 @@ Another challenge was setting up the FastAPI app for inference: loading a traine
 > Answer:
 
 
-Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit testing for the API, Continuous Integration and the report.
+Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit and load testing for the API, Continuous Integration and the report.
 Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
 Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.
