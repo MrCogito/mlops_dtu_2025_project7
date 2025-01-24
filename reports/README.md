@@ -537,6 +537,10 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 >
 > Answer:
 
+We attempted to train our model in the cloud using Vertex AI but were unsuccessful due to configuration challenges. Specifically, we encountered issues with setting up the required environment and dependencies on Vertex AI, which led to failures when running the training command. While we had a Docker container prepared for local runs, ensuring compatibility with Vertex AI's managed environment required additional adjustments, such as proper specification of the container image and entry points. Additionally, limitations in our familiarity with Vertex AI's orchestration and authentication processes, like IAM role configuration and artifact storage setup, further complicated the process.
+
+We chose Vertex AI because of its seamless integration with GCP and features like auto-scaling and experiment tracking. However, these same features added complexity, requiring more time to debug than we had available. In the future, we plan to address these challenges by improving our understanding of cloud-based machine learning workflows and leveraging pre-existing tutorials or templates for Vertex AI deployment.
+
 --- question 22 fill here ---
 
 ## Deployment
@@ -622,6 +626,11 @@ We didn’t implement monitoring yet. To ensure reliability, we’d use Google C
 >
 > Answer:
 
+We ended up using only a small number of credits during the project due to our failure to fully configure and utilize Vertex AI for model training. We spent a little amount for storing our data.
+
+Working in the cloud was a valuable learning experience, as it highlighted the challenges of configuring cloud services and managing resources efficiently. While we didn’t fully achieve our goals, we now understand the potential of cloud platforms for scalability and collaboration.
+
+
 --- question 27 fill here ---
 
 ### Question 28 (William)
@@ -688,6 +697,10 @@ Users can pull the image from the GitHub Container Registry to run the container
 >
 > Answer:
 
+The biggest challenge in the project was configuring GCP for our needs, which took considerable time and effort. While we managed to set up the storage bucket successfully, we couldn’t fully integrate model training with Vertex AI due to setup issues and a lack of familiarity with the platform. Debugging these problems consumed a significant portion of our time.
+
+Another struggle was setting up continuous integration with GitHub Actions, as it required us to learn and implement workflows for linting, testing, and caching. We overcame this by thoroughly reading blogs, official documentation, and experimenting with configurations until it worked.
+
 --- question 30 fill here ---
 
 ### Question 31 (Together)
@@ -707,3 +720,4 @@ Users can pull the image from the GitHub Container Registry to run the container
 > Answer:
 
 Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
+Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.
