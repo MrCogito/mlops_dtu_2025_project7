@@ -177,7 +177,6 @@ We used requirements.txt file for managing our dependencies. The list of depende
    As an alternative - one can run scripts using docker that is automatically build when there is push to main branch. To do it - person should follow instructions on README.md.
    Current setup allows either build docker image locally or pull it from github docker registery. 
 
---- question 4 fill here ---
 
 ### Question 5
 
@@ -217,8 +216,6 @@ We used flake8 for linting to ensure adherence to Python's best practices and to
 These ideas guarantee maintainability, scalability, and seamless cooperation, which makes them essential for larger projects. Linting, for example, avoids logical and stylistic mistakes, and uniform formatting speeds up code reviews and gets rid of style arguments.
 
 
---- question 6 fill here ---
-
 ## Version control
 
 > In the following section we are interested in how version control was used in your project during development to
@@ -238,8 +235,6 @@ These ideas guarantee maintainability, scalability, and seamless cooperation, wh
 
 In total, we have implemented 4 tests. Primarily we are testing data and model scripts as they are currently the most critical parts of our project. This includes checking if the dataset is correctly initialized, preprocessed, and saved in the correct folder. Additionally, we check if the model architecture is correct and model output has the correct shape and value ranges. 
 
---- question 7 fill here ---
-
 ### Question 8
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
@@ -257,7 +252,6 @@ The total code coverage of our code is 57%, mainly covering parts related to dat
 For example, tests might miss problems like unexpected inputs, edge cases, or how different parts of the system work together. Tests can also fail to check if the results are correct, giving a false sense of security.
 To make sure the code is reliable, it’s not enough to just have high coverage. The quality of the tests matters more. Good tests check for edge cases, confirm the logic is correct, and ensure the system behaves well in all situations
 
---- question 8 fill here ---
 
 ### Question 9
 
@@ -276,10 +270,7 @@ We used branches and pull requests (PRs) to manage our workflow. Each team membe
 PRs acted as checkpoints for code review, feedback, and ensuring adherence to project standards. Our CI/CD pipeline ran tests and linting checks on every PR and push, helping us catch issues early and maintain code quality.
 This workflow enabled parallel development, reduced conflicts, ensured through code reviews, and kept the main branch stable, enhancing collaboration and reliability.
 
-
---- question 9 fill here ---
-
-### Question 10 (Samyak)
+### Question 10
 
 > **Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version**
 > **control of your data. If no, explain a case where it would be beneficial to have version control of your data.**
@@ -297,9 +288,6 @@ We did not use DVC in this project, though it would be of great use. DVC allows 
 Moreover, DVC promotes collaboration in that teams can share and synchronize datasets with remote storage; hence no manual handling of the data is required. Compatibility with Git would also have optimized our workflow in ensuring that data and code versions were unified—hence improving the consistency and traceability of the experiments.
 
 This would allow for a much more structured and scalable way of handling datasets, especially as projects get too complicated or need frequent changes in data or preprocessing pipelines.
-
-
---- question 10 fill here ---
 
 ### Question 11
 
@@ -332,7 +320,7 @@ An example of a triggered workflow can be seen here: https://github.com/mlops-dt
 > In the following section we are interested in learning more about the experimental setup for running your code and
 > especially the reproducibility of your experiments.
 
-### Question 12 (Samyak)
+### Question 12
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
 > **run a experiment.**
@@ -365,9 +353,7 @@ paths:
   model_output: "models/lstm_model.pth"
  ``` 
 
---- question 12 fill here ---
-
-### Question 13 (Samyak)
+### Question 13
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
 > **is lost when running experiments and that your experiments are reproducible?**
@@ -555,7 +541,7 @@ We were unable to configure the GCP Artifact Registry setup and, as a result, di
 We were unable to configure the GCP cloud build setup and, as a result, did not store any Docker images.
 
 
-### Question 22 (Kazi)
+### Question 22
 
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
@@ -574,7 +560,7 @@ We chose Vertex AI because of its seamless integration with GCP and features lik
 
 ## Deployment
 
-### Question 23 (Samyak)
+### Question 23
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -591,10 +577,7 @@ Yes, we wrote the API for our model using FastAPI to carry out inferences. This 
 
 We applied pre-processing using a saved MinMaxScaler to keep the data consistent with that used in training. It also has a root endpoint, indicating whether the service is running. This allows the model to be very easily tested and used for making predictions while keeping deployment as simple and lightweight as possible.
 
-
---- question 23 fill here ---
-
-### Question 24 (Samyak)
+### Question 24
 
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -615,9 +598,7 @@ To call the service, for example, one would need to send a `POST` request to `/p
 That has not been done here, but one can also deploy this API into a cloud platform to scale and allow more users to access the API remotely.
 
 
---- question 24 fill here ---
-
-### Question 25 (Samyak)
+### Question 25
 
 > **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
 > **the load testing did you get. If not, explain how you would do it.**
@@ -633,9 +614,6 @@ That has not been done here, but one can also deploy this API into a cloud platf
 We performed unit testing of the API with `pytest` and `httpx`. The unit tests included the correctness of the API by testing the endpoints, such as `/` and `/predict`. We have conducted a test regarding the `/` endpoint to return `200` as the status code with a welcome message. Similarly, the `/predict` endpoint was tested whether for valid sequences, it returns a flood probability between `0` and `1` as expected.
 
 Apart from unit testing, we have done load testing using Locust. Locust enables us to simulate hundreds of simultaneous users bombarding the API to basically test API's behavior under load: response time test, throughput, and stability, to make sure API can serve real-world use cases effectively. A load test script simulates user interactions with both the `/` and `/predict` endpoints, making it easy to see performance metrics under loads of various sizes.
-
-
---- question 25 fill here ---
 
 ### Question 26
 
