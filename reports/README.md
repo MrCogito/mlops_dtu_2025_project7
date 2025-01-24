@@ -149,7 +149,7 @@ s204145, s232883, s232924, s230208
 >
 > Answer:
 
-We used the third-party framework tsai (https://timeseriesai.github.io/tsai/) to work with time series data. This framework provided pre-implemented models like LSTM, allowing us to experiment quickly with different time series architectures without building models from scratch. Its streamlined API significantly accelerated our workflow and made trying various approaches efficient. Additionally, we used the Black code formatter to maintain code consistency and readability. While the course used Ruff, we preferred Black for its simplicity and widespread adoption. Together, these tools enhanced the project by simplifying model experimentation and ensuring well-formatted, maintainable code throughout development. We also used sklearn for data preprocessing. 
+We used the third-party framework tsai (https://timeseriesai.github.io/tsai/) to work with time series data. This framework provided pre-implemented models like LSTM, allowing us to experiment quickly with different time series architectures without building models from scratch. Its streamlined API significantly accelerated our workflow and made trying various approaches efficient. Additionally, we used the Black code formatter to maintain code consistency and readability. While the course used Ruff, we preferred Black for its simplicity and widespread adoption. Together, these tools enhanced the project by simplifying model experimentation and ensuring well-formatted, maintainable code throughout development. We also used methods built-in sklearn to perform data preprocessing.
 
 ## Coding environment
 
@@ -599,6 +599,8 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 > *measure ... and ... that would inform us about this ... behaviour of our application.*
 >
 > Answer:
+
+We didn’t implement monitoring yet. To ensure reliability, we’d use Google Cloud Monitoring alongside Kubernetes to manage containers. Our app would run in one container, while a separate "sidecar" container (like Prometheus) collects metrics such as error rates, request counts, and response times. These containers communicate through Kubernetes, ensuring data flows smoothly. We’d set alerts for issues like sudden error spikes or slow performance, notifying the team to act quickly. Defining goals (e.g., “99% of requests handled in under 1 second”) would help track if the app meets user expectations. Without monitoring, silent issues—like gradual slowdowns or hidden bugs—could degrade performance over time, frustrating users. By coordinating containers and tracking metrics, we’d catch problems early, maintain stability, and scale efficiently as usage grows.
 
 --- question 26 fill here ---
 
