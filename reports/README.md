@@ -57,7 +57,7 @@ will check the repositories and the code to verify your answers.
 * [x] Remember to fill out the `requirements.txt` and `requirements_dev.txt` file with whatever dependencies that you
     are using (M2+M6)
     (Karol)
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)  (Kazi)
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project (M7)  (Kazi)
 * [x] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [ ] Setup version control for your data or part of your data (M8)
 * [x] Add command line interfaces and project commands to your code where it makes sense (M9)
@@ -66,7 +66,7 @@ will check the repositories and the code to verify your answers.
 * [x] Write one or multiple configurations files for your experiments (M11) 
 * [x] Used Hydra to load the configurations and manage your hyperparameters (M11)
 * [ ] X Use profiling to optimize your code (M12)   (Leave it for now)
-* [ ] Use logging to log important events in your code (M14) (Kazi)
+* [x] Use logging to log important events in your code (M14) (Kazi)
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
 * [ ] Consider running a hyperparameter optimization sweep (M14) (Leave it for now)
 * [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15) (Leave it for now - maybe come back later )
@@ -77,17 +77,17 @@ will check the repositories and the code to verify your answers.
 * [ ] Write unit tests related to model construction and or model training (M16)
 * [ ] Calculate the code coverage (M16) (1. Karol)
 * [ ] 
-* [ ] Get some continuous integration running on the GitHub repository (M17) (Kazi)
-* [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17) (Kazi)
-* [ ] Add a linting step to your continuous integration (M17)  (Kazi)
+* [x] Get some continuous integration running on the GitHub repository (M17) (Kazi)
+* [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17) (Kazi)
+* [x] Add a linting step to your continuous integration (M17)  (Kazi)
 * [ ] Add pre-commit hooks to your version control setup (M18) (Leave it for now)
 * [ ] Add a continues workflow that triggers when data changes (M19) (Leave it for now)
 * [ ] 
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19) (2. William  )
 * [ ] 
-* [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21) (3. Kazi)
+* [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21) (3. Kazi)
 * [ ] Create a trigger workflow for automatically building your docker images (M21) (4. Karol )
-* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21) (3.Kazi )
+* [x] Get your model training in GCP using either the Engine or Vertex AI (M21) (3.Kazi )
 * [ ] Create a FastAPI application that can do inference using your model (M22) (5.Samyak )
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23) (3.Kazi )
 * [ ] Write API tests for your application and setup continues integration for these (M24) (5.Samyak )
@@ -580,6 +580,10 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 >
 > Answer:
 
+We attempted to train our model in the cloud using Vertex AI but were unsuccessful due to configuration challenges. Specifically, we encountered issues with setting up the required environment and dependencies on Vertex AI, which led to failures when running the training command. While we had a Docker container prepared for local runs, ensuring compatibility with Vertex AI's managed environment required additional adjustments, such as proper specification of the container image and entry points. Additionally, limitations in our familiarity with Vertex AI's orchestration and authentication processes, like IAM role configuration and artifact storage setup, further complicated the process.
+
+We chose Vertex AI because of its seamless integration with GCP and features like auto-scaling and experiment tracking. However, these same features added complexity, requiring more time to debug than we had available. In the future, we plan to address these challenges by improving our understanding of cloud-based machine learning workflows and leveraging pre-existing tutorials or templates for Vertex AI deployment.
+
 --- question 22 fill here ---
 
 ## Deployment
@@ -681,6 +685,11 @@ We didn’t implement monitoring yet. To ensure reliability, we’d use Google C
 >
 > Answer:
 
+We ended up using only a small number of credits during the project due to our failure to fully configure and utilize Vertex AI for model training. We spent a little amount for storing our data.
+
+Working in the cloud was a valuable learning experience, as it highlighted the challenges of configuring cloud services and managing resources efficiently. While we didn’t fully achieve our goals, we now understand the potential of cloud platforms for scalability and collaboration.
+
+
 --- question 27 fill here ---
 
 ### Question 28 (William)
@@ -747,6 +756,10 @@ Users can pull the image from the GitHub Container Registry to run the container
 >
 > Answer:
 
+The biggest challenge in the project was configuring GCP for our needs, which took considerable time and effort. While we managed to set up the storage bucket successfully, we couldn’t fully integrate model training with Vertex AI due to setup issues and a lack of familiarity with the platform. Debugging these problems consumed a significant portion of our time.
+
+Another struggle was setting up continuous integration with GitHub Actions, as it required us to learn and implement workflows for linting, testing, and caching. We overcame this by thoroughly reading blogs, official documentation, and experimenting with configurations until it worked.
+
 --- question 30 fill here ---
 
 Another challenge was configuring Hydra for dynamic configuration management, for which we had to work extensively on configuring paths and hyperparameters correctly. There were a number of path problems we encountered and resolved through debugging and iterative trial-and-error testing until configurations ran smoothly.
@@ -769,4 +782,7 @@ Another challenge was setting up the FastAPI app for inference: loading a traine
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report. Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit testing for the API, Continuous Integration and the report.
+
+Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit testing for the API, Continuous Integration and the report.
+Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
+Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.

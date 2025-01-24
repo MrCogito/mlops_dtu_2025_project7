@@ -28,6 +28,11 @@ from tsai.models.RNN import LSTM as tsai_LSTM
 setup_logging()
 logger = logging.getLogger(__name__)
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+from src.mlops_2025_floods_prediction.model import LSTMModel
+
 # Hydra config decorator
 @hydra.main(version_base=None, config_path="conf", config_name="config")
 def main(cfg: DictConfig):
@@ -89,20 +94,23 @@ def main(cfg: DictConfig):
 
     # Create DataLoader
     batch_size = cfg.training.batch_size
-    train_loader = DataLoader(
-        TensorDataset(X_train_tensor, y_train_tensor),
-        batch_size=batch_size,
-        shuffle=True,
-    )
+    train_loader = DataLoader(TensorDataset(X_train_tensor, y_train_tensor), batch_size=batch_size, shuffle=True)
 
-    # Initialize tsai LSTM model with sigmoid activation
-    model = nn.Sequential(
-        tsai_LSTM(c_in=1, 
-                 c_out=1, 
-                 hidden_size=cfg.model.hidden_size,
-                 n_layers=cfg.model.num_layers),
-        nn.Sigmoid()
-    )
+    # # Define LSTM Model moved to src/mlops_2025_floods_prediction/model.py
+    # class LSTMModel(nn.Module):
+    #     def __init__(self):
+    #         super(LSTMModel, self).__init__()
+    #         self.lstm = nn.LSTM(input_size=1, hidden_size=cfg.model.hidden_size, num_layers=cfg.model.num_layers, batch_first=True)
+    #         self.fc = nn.Linear(cfg.model.hidden_size, 1)
+    #         self.sigmoid = nn.Sigmoid()
+
+    #     def forward(self, x):
+    #         x, _ = self.lstm(x)
+    #         x = x[:, -1, :]  # Output of the last timestep
+    #         x = self.fc(x)
+    #         return self.sigmoid(x)
+
+    model = LSTMModel()
 
     criterion = nn.BCELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.training.learning_rate)
@@ -146,6 +154,16 @@ def main(cfg: DictConfig):
     test_df = test_df.iloc[: len(test_predictions)]
     test_df["flood_probability"] = test_predictions
     test_df.to_csv(cfg.paths.predictions_output, index=False)
+
+    print(f"Predictions saved to {cfg.paths.predictions_output}")
+    
+    # Save the model to the models folder
+    models_folder = os.path.join(os.getcwd(), "models")
+    os.makedirs(models_folder, exist_ok=True)  # Ensure the folder exists
+
+    model_save_path = os.path.join(models_folder, "lstm_model.pth")
+    torch.save(model.state_dict(), model_save_path)
+    print(f"Model saved to {model_save_path}")
 
     # Log artifacts and finish
     wandb.save(cfg.paths.predictions_output)
