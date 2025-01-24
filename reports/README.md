@@ -97,14 +97,14 @@ will check the repositories and the code to verify your answers.
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting (M27)
-* [ ] Deploy to the cloud a drift detection API (M27)
-* [ ] Instrument your API with a couple of system metrics (M28)
-* [ ] Setup cloud monitoring of your instrumented application (M28)
-* [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28)
-* [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29)
-* [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30)
-* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31)
+* [ ] Check how robust your model is towards data drifting (M27) (Karol)
+* [ ] Deploy to the cloud a drift detection API (M27) (Kazi)
+* [ ] Instrument your API with a couple of system metrics (M28) (Samyak)
+* [ ] Setup cloud monitoring of your instrumented application (M28) (Kazi)
+* [ ] Create one or more alert systems in GCP to alert you if your app is not behaving correctly (M28) (Kazi)
+* [ ] If applicable, optimize the performance of your data loading using distributed data loading (M29) (Karol)
+* [ ] If applicable, optimize the performance of your training pipeline by using distributed training (M30) (Karol)
+* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed (M31) (come back to this)
 
 ### Extra
 
@@ -122,7 +122,8 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 1 fill here ---
+Group 7
+
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -133,7 +134,8 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 2 fill here ---
+s204145, s232883, s232924, s230208
+
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -147,14 +149,14 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 3 fill here ---
+Come back to this one
 
 ## Coding environment
 
 > In the following section we are interested in learning more about you local development environment. This includes
 > how you managed dependencies, the structure of your code and how you managed code quality.
 
-### Question 4
+### Question 4 (Karol)
 
 > **Explain how you managed dependencies in your project? Explain the process a new team member would have to go**
 > **through to get an exact copy of your environment.**
@@ -169,7 +171,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 4 fill here ---
 
-### Question 5
+### Question 5 (William)
 
 > **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your**
 > **code. What did you fill out? Did you deviate from the template in some way?**
@@ -183,9 +185,13 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template, we have filled out the src, configs, data, tests, reports and workflows folders. The src folder contains the main codebase for our project, including modules for data processing, model definition, and training procedures. The tests folder includes unit tests for validating our code’s correctness and ensuring robustness. The reports folder is used for documenting our progress and providing visualizations of our results.
 
-### Question 6
+We did not remove any default folders from the template but made modifications to suit our project needs. For instance, we added submodules within the src folder, such as mlops_2025_floods_prediction, to organize our project’s logic better. Additionally, we included a configs folder in the root directory for managing experiment configurations using Hydra.
+
+These changes allowed us to maintain a clean and modular structure, making the project easy to navigate and extend.
+
+### Question 6 (Kazi)
 
 > **Did you implement any rules for code quality and format? What about typing and documentation? Additionally,**
 > **explain with your own words why these concepts matters in larger projects.**
@@ -205,7 +211,7 @@ will check the repositories and the code to verify your answers.
 > In the following section we are interested in how version control was used in your project during development to
 > corporate and increase the quality of your code.
 
-### Question 7
+### Question 7 (Karol)
 
 > **How many tests did you implement and what are they testing in your code?**
 >
@@ -219,7 +225,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 7 fill here ---
 
-### Question 8
+### Question 8 (Karol)
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -234,7 +240,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 8 fill here ---
 
-### Question 9
+### Question 9 (Kazi)
 
 > **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
 > **pull request can help improve version control.**
@@ -249,7 +255,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 9 fill here ---
 
-### Question 10
+### Question 10 (Samyak)
 
 > **Did you use DVC for managing data in your project? If yes, then how did it improve your project to have version**
 > **control of your data. If no, explain a case where it would be beneficial to have version control of your data.**
@@ -264,7 +270,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 10 fill here ---
 
-### Question 11
+### Question 11 (Kazi)
 
 > **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
 > **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
@@ -286,7 +292,7 @@ will check the repositories and the code to verify your answers.
 > In the following section we are interested in learning more about the experimental setup for running your code and
 > especially the reproducibility of your experiments.
 
-### Question 12
+### Question 12 (Samyak)
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
 > **run a experiment.**
@@ -300,7 +306,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 12 fill here ---
 
-### Question 13
+### Question 13 (Samyak)
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
 > **is lost when running experiments and that your experiments are reproducible?**
@@ -315,11 +321,11 @@ will check the repositories and the code to verify your answers.
 
 --- question 13 fill here ---
 
-### Question 14
+### Question 14 (William)
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
-> **inspiration from [this figure](figures/wandb.png). Explain what metrics you are tracking and why they are**
+> **inspiration from [this figure](figurecs/wandb.png). Explain what metrics you are tracking and why they are**
 > **important.**
 >
 > Recommended answer length: 200-300 words + 1 to 3 screenshots.
@@ -330,9 +336,17 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
---- question 14 fill here ---
 
-### Question 15
+![](figures/wandb.png "W&B")
+
+In the provided screenshot, two key metrics, epoch and loss, are being tracked across multiple runs using Weights & Biases (W&B).
+Epoch: This metric represents the number of complete passes through the training dataset during model training. Tracking epochs helps ensure that the model is adequately trained and allows us to monitor the training duration across runs for comparison and optimization purposes.
+Loss: This metric quantifies the difference between the predicted and actual values, providing a measure of model performance. Lower loss values indicate better model accuracy. Monitoring the loss curve helps identify whether the model is converging as expected and if there are issues such as overfitting or underfitting.
+
+As seen in the charts, the loss decreases sharply in the initial epochs and stabilizes, indicating effective model training. Multiple runs with unique identifiers allow for cross-comparison of experiments, facilitating hyperparameter tuning and model selection. This process is critical for refining the model to achieve optimal performance. By using W&B, the experiments and metrics are logged efficiently, enhancing reproducibility and collaboration within the team.
+
+
+### Question 15 (Karol)
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
 > **experiments/project? Include how you would run your docker images and include a link to one of your docker files.**
@@ -347,7 +361,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 15 fill here ---
 
-### Question 16
+### Question 16 (Kazi)
 
 > **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you**
 > **try to profile your code or do you think it is already perfect?**
@@ -366,7 +380,7 @@ will check the repositories and the code to verify your answers.
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17
+### Question 17 (Kazi)
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -379,7 +393,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 17 fill here ---
 
-### Question 18
+### Question 18 (Kazi)
 
 > **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
 > **you used?**
@@ -394,7 +408,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 18 fill here ---
 
-### Question 19
+### Question 19 (Kazi)
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
@@ -403,7 +417,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 19 fill here ---
 
-### Question 20
+### Question 20 (Kazi)
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.png).**
@@ -412,7 +426,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 20 fill here ---
 
-### Question 21
+### Question 21 (Kazi)
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
@@ -421,7 +435,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 21 fill here ---
 
-### Question 22
+### Question 22 (Kazi)
 
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
@@ -438,7 +452,7 @@ will check the repositories and the code to verify your answers.
 
 ## Deployment
 
-### Question 23
+### Question 23 (Samyak)
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -453,7 +467,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 23 fill here ---
 
-### Question 24
+### Question 24 (Samyak)
 
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -469,7 +483,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 24 fill here ---
 
-### Question 25
+### Question 25 (Samyak)
 
 > **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
 > **the load testing did you get. If not, explain how you would do it.**
@@ -484,7 +498,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 25 fill here ---
 
-### Question 26
+### Question 26 (Karol)
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -499,11 +513,12 @@ will check the repositories and the code to verify your answers.
 
 --- question 26 fill here ---
 
+
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 27
+### Question 27 (Kazi) 
 
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
@@ -518,7 +533,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 27 fill here ---
 
-### Question 28
+### Question 28 (William)
 
 > **Did you implement anything extra in your project that is not covered by other questions? Maybe you implemented**
 > **a frontend for your API, use extra version control features, a drift detection service, a kubernetes cluster etc.**
@@ -532,9 +547,11 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
+We implemented a frontend for our API using Streamlit. This was done to provide users with an intuitive and interactive interface for uploading CSV files and running predictions. The frontend allows users to preview their data and visualize the prediction results without interacting with the API directly.
+
 --- question 28 fill here ---
 
-### Question 29
+### Question 29 (Karol)
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
 > **You can take inspiration from [this figure](figures/overview.png). Additionally, in your own words, explain the**
@@ -551,7 +568,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 29 fill here ---
 
-### Question 30
+### Question 30 (Together)
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -565,7 +582,7 @@ will check the repositories and the code to verify your answers.
 
 --- question 30 fill here ---
 
-### Question 31
+### Question 31 (Together)
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
 > **make sure all members contributed actively to the project. Additionally, state if/how you have used generative AI**
@@ -581,4 +598,4 @@ will check the repositories and the code to verify your answers.
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
