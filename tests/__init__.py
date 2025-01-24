@@ -4,7 +4,7 @@ import os
 import torch
 import pytest
 from src.mlops_2025_floods_prediction.main import app, load_model, model
-from src.mlops_2025_floods_prediction.train import LSTMModel  # Correct import path
+
 
 # Define root paths
 _TEST_ROOT = os.path.dirname(__file__)  # Root of the test folder

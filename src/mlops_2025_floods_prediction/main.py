@@ -4,7 +4,8 @@ import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sklearn.preprocessing import MinMaxScaler
-from src.mlops_2025_floods_prediction.train import LSTMModel
+from tsai.models.RNN import LSTM as tsai_LSTM
+from torch import nn
 
 # FastAPI app initialization
 app = FastAPI()
@@ -34,17 +35,14 @@ model_path = "lstm_model.pth"  # Update this if the model is saved elsewhere
 
 # Load the model on startup
 @app.on_event("startup")
-def load_model():
-    global model
-    hidden_size = 64  # Update this based on your training configuration
-    num_layers = 2    # Update this based on your training configuration
-    model = LSTMModel(input_size=1, hidden_size=hidden_size, num_layers=num_layers)
-    
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model file '{model_path}' not found. Train the model first.")
-    
-    model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
+def load_model(model_path: str) -> nn.Module:
+    model = nn.Sequential(
+        tsai_LSTM(c_in=1, c_out=1, hidden_size=64, n_layers=2),
+        nn.Sigmoid()
+    )
+    model.load_state_dict(torch.load(model_path))
     model.eval()
+    return model
 
 # Root endpoint
 @app.get("/")
