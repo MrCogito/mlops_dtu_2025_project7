@@ -57,7 +57,7 @@ will check the repositories and the code to verify your answers.
 * [x] Remember to fill out the `requirements.txt` and `requirements_dev.txt` file with whatever dependencies that you
     are using (M2+M6)
     (Karol)
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project (M7)  (Kazi)
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project (M7)  (Kazi)
 * [x] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [ ] Setup version control for your data or part of your data (M8)
 * [x] Add command line interfaces and project commands to your code where it makes sense (M9)
@@ -66,7 +66,7 @@ will check the repositories and the code to verify your answers.
 * [x] Write one or multiple configurations files for your experiments (M11) 
 * [x] Used Hydra to load the configurations and manage your hyperparameters (M11)
 * [ ] X Use profiling to optimize your code (M12)   (Leave it for now)
-* [ ] Use logging to log important events in your code (M14) (Kazi)
+* [x] Use logging to log important events in your code (M14) (Kazi)
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
 * [ ] Consider running a hyperparameter optimization sweep (M14) (Leave it for now)
 * [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15) (Leave it for now - maybe come back later )
@@ -77,17 +77,17 @@ will check the repositories and the code to verify your answers.
 * [ ] Write unit tests related to model construction and or model training (M16)
 * [ ] Calculate the code coverage (M16) (1. Karol)
 * [ ] 
-* [ ] Get some continuous integration running on the GitHub repository (M17) (Kazi)
-* [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17) (Kazi)
-* [ ] Add a linting step to your continuous integration (M17)  (Kazi)
+* [x] Get some continuous integration running on the GitHub repository (M17) (Kazi)
+* [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17) (Kazi)
+* [x] Add a linting step to your continuous integration (M17)  (Kazi)
 * [ ] Add pre-commit hooks to your version control setup (M18) (Leave it for now)
 * [ ] Add a continues workflow that triggers when data changes (M19) (Leave it for now)
 * [ ] 
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19) (2. William  )
 * [ ] 
-* [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21) (3. Kazi)
+* [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21) (3. Kazi)
 * [ ] Create a trigger workflow for automatically building your docker images (M21) (4. Karol )
-* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21) (3.Kazi )
+* [x] Get your model training in GCP using either the Engine or Vertex AI (M21) (3.Kazi )
 * [ ] Create a FastAPI application that can do inference using your model (M22) (5.Samyak )
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23) (3.Kazi )
 * [ ] Write API tests for your application and setup continues integration for these (M24) (5.Samyak )
@@ -149,7 +149,7 @@ s204145, s232883, s232924, s230208
 >
 > Answer:
 
-Come back to this one
+We used the third-party framework tsai (https://timeseriesai.github.io/tsai/) to work with time series data. This framework provided pre-implemented models like LSTM, allowing us to experiment quickly with different time series architectures without building models from scratch. Its streamlined API significantly accelerated our workflow and made trying various approaches efficient. Additionally, we used the Black code formatter to maintain code consistency and readability. While the course used Ruff, we preferred Black for its simplicity and widespread adoption. Together, these tools enhanced the project by simplifying model experimentation and ensuring well-formatted, maintainable code throughout development. We also used methods built-in sklearn to perform data preprocessing.
 
 ## Coding environment
 
@@ -168,6 +168,14 @@ Come back to this one
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
+
+We used requirements.txt file for managing our dependencies. The list of dependencies was inistally auto-generated using pipreqs. Then if somebody used library not included in requirements he should add it there in pull request. To get a complete copy of our development environment, one would have to run the following commands. 
+1. Copy repository
+2. Create virtual env using preferred tool eg conda: conda create --name my_environment python=3.11
+3. install requirements using: pip3 install -r requirements_dev.txt
+
+   As an alternative - one can run scripts using docker that is automatically build when there is push to main branch. To do it - person should follow instructions on README.md.
+   Current setup allows either build docker image locally or pull it from github docker registery. 
 
 --- question 4 fill here ---
 
@@ -204,6 +212,11 @@ These changes allowed us to maintain a clean and modular structure, making the p
 >
 > Answer:
 
+We used flake8 for linting to ensure adherence to Python's best practices and to catch common errors, such as unused imports or undefined variables. For code formatting, we followed PEP8 standards and utilized Black as a pre-commit hook to enforce consistent formatting across the project automatically. This ensures that all code remains clean, readable, and standardized.
+
+These ideas guarantee maintainability, scalability, and seamless cooperation, which makes them essential for larger projects. Linting, for example, avoids logical and stylistic mistakes, and uniform formatting speeds up code reviews and gets rid of style arguments.
+
+
 --- question 6 fill here ---
 
 ## Version control
@@ -223,6 +236,8 @@ These changes allowed us to maintain a clean and modular structure, making the p
 >
 > Answer:
 
+In total, we have implemented 4 tests. Primarily we are testing data and model scripts as they are currently the most critical parts of our project. This includes checking if the dataset is correctly initialized, preprocessed, and saved in the correct folder. Additionally, we check if the model architecture is correct and model output has the correct shape and value ranges. 
+
 --- question 7 fill here ---
 
 ### Question 8 (Karol)
@@ -238,6 +253,10 @@ These changes allowed us to maintain a clean and modular structure, making the p
 >
 > Answer:
 
+The total code coverage of our code is 57%, mainly covering parts related to data processing and training. While higher coverage is good, even 100% coverage doesn’t mean the code is free of errors. Code coverage only shows that every line of code has been run during testing, but it doesn’t catch all possible issues.
+For example, tests might miss problems like unexpected inputs, edge cases, or how different parts of the system work together. Tests can also fail to check if the results are correct, giving a false sense of security.
+To make sure the code is reliable, it’s not enough to just have high coverage. The quality of the tests matters more. Good tests check for edge cases, confirm the logic is correct, and ensure the system behaves well in all situations
+
 --- question 8 fill here ---
 
 ### Question 9 (Kazi)
@@ -252,6 +271,11 @@ These changes allowed us to maintain a clean and modular structure, making the p
 > *addition to the main branch. To merge code we ...*
 >
 > Answer:
+
+We used branches and pull requests (PRs) to manage our workflow. Each team member worked on their own feature branch to keep changes separate from the main branch. This allowed us to develop and test without disrupting the stable codebase. When a feature was ready, we opened a PR to merge it into the main branch.
+PRs acted as checkpoints for code review, feedback, and ensuring adherence to project standards. Our CI/CD pipeline ran tests and linting checks on every PR and push, helping us catch issues early and maintain code quality.
+This workflow enabled parallel development, reduced conflicts, ensured through code reviews, and kept the main branch stable, enhancing collaboration and reliability.
+
 
 --- question 9 fill here ---
 
@@ -284,6 +308,17 @@ These changes allowed us to maintain a clean and modular structure, making the p
 > *here: <weblink>*
 >
 > Answer:
+
+In order to automate important parts of our code quality assurance, we have consolidated our continuous integration (CI) into a single, all-inclusive GitHub Actions process. To guarantee the stability of our project, this workflow—which is specified in the ci.yml file—focuses on unit testing, linting, and cross-environment testing.
+
+Our CI setup runs tests across multiple operating systems (ubuntu-latest, windows-latest, and macos-latest) to verify compatibility. We also test our code with multiple Python versions (3.8, 3.9, and 3.10) and PyTorch versions (1.13.1 and 2.0.0) using a matrix strategy. This ensures that our project remains functional in diverse environments, which is especially important for collaborative projects or deployments in varying conditions.
+
+We also use flake8 for linting in order to enforce Python code standards and identify possible problems early. Both are carried out as part of the procedure, and Black is used to ensure uniform code formatting. To make sure our code works as intended, code coverage checks are conducted alongside unit tests.
+
+To optimize performance, we make use of caching for Python dependencies (pip) based on the hash of the requirements.txt file. This reduces the runtime of CI jobs by avoiding redundant installations of unchanged dependencies.
+
+An example of a triggered workflow can be seen here: https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/blob/main/.github/workflows/ci.yml
+
 
 --- question 11 fill here ---
 
@@ -359,6 +394,37 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+ For our project we developed several images: one for training and one for deployment(handle api).
+ To run the training docker we have this instruction:
+ To get latest docker image from ghrc run:
+```bash
+docker pull ghcr.io/mlops-dtu-group7-2025/mlops_dtu_2025_project7/mlops_dtu_2025_project7:latest
+```
+
+To build docker image locally run: 
+
+```bash
+docker build -t mlops-floods -f dockerfiles/train.dockerfile .
+```
+Set wandb API key: 
+```bash
+export WANDB_API_KEY=your_wandb_api_key
+```
+Run docker container with mounted data dir:
+```bash
+docker run --rm \
+  -e WANDB_API_KEY="$WANDB_API_KEY" \
+  -v "$(pwd)/data:/data" \
+  mlops-floods
+```
+You can find our Docker container images here:
+
+[mlops_dtu_2025_project7 Docker Images](https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/pkgs/container/mlops_dtu_2025_project7%2Fmlops_dtu_2025_project7)
+
+And our dockerfiles are here:
+[mlops_dtu_2025_project7 DockerFiles](https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/tree/main/dockerfiles) 
+
+
 --- question 15 fill here ---
 
 ### Question 16 (Kazi)
@@ -373,6 +439,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > *run of our main code at some point that showed ...*
 >
 > Answer:
+
+Our group had different ways of debugging. Some used print statements to find errors, while others used tools like pdb or IDE debuggers (e.g., PyCharm). We also looked at error messages and stack traces to fix issues. To check performance, we used cProfile and found that data preprocessing could be improved. The code runs well overall, but more profiling could help us make training and I/O tasks faster.
+
 
 --- question 16 fill here ---
 
@@ -391,6 +460,14 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+In our project, we attempted to leverage the following GCP services:
+Cloud Storage (Bucket): Large datasets may be managed and stored using cloud storage (Bucket). It offered training files and data preparation safe, scalable storage.
+Vertex AI: Machine learning models are created, trained, and implemented using Vertex AI. With integrated tools for model optimisation and experimentation, it expedited the development process.
+Cloud Endpoints (API): Our REST APIs are hosted and managed by cloud endpoints (API), which provide scalability and security while facilitating smooth communication between frontend and backend applications.
+
+Other services we tried: compute, dataflow, notebooks, visionai, artifactregistry, datacatalog, dataform, aiplatform, dataplex.
+
+
 --- question 17 fill here ---
 
 ### Question 18 (Kazi)
@@ -406,6 +483,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+We intended to use GCP's Compute Engine to run our workloads but were unable to configure the setup successfully. Despite our efforts, we couldn’t deploy the required virtual machine instances or complete the setup for our project.
+
+
 --- question 18 fill here ---
 
 ### Question 19 (Kazi)
@@ -414,6 +494,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
+
+![](figures/bucket-1.png "GCP Bucket")
+![](figures/bucket-2.png "GCP Bucket")
 
 --- question 19 fill here ---
 
@@ -424,6 +507,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+We were unable to configure the GCP Artifact Registry setup and, as a result, did not store any Docker images.
+
+
 --- question 20 fill here ---
 
 ### Question 21 (Kazi)
@@ -432,6 +518,9 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
+
+We were unable to configure the GCP cloud build setup and, as a result, did not store any Docker images.
+
 
 --- question 21 fill here ---
 
@@ -447,6 +536,10 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > *was because ...*
 >
 > Answer:
+
+We attempted to train our model in the cloud using Vertex AI but were unsuccessful due to configuration challenges. Specifically, we encountered issues with setting up the required environment and dependencies on Vertex AI, which led to failures when running the training command. While we had a Docker container prepared for local runs, ensuring compatibility with Vertex AI's managed environment required additional adjustments, such as proper specification of the container image and entry points. Additionally, limitations in our familiarity with Vertex AI's orchestration and authentication processes, like IAM role configuration and artifact storage setup, further complicated the process.
+
+We chose Vertex AI because of its seamless integration with GCP and features like auto-scaling and experiment tracking. However, these same features added complexity, requiring more time to debug than we had available. In the future, we plan to address these challenges by improving our understanding of cloud-based machine learning workflows and leveraging pre-existing tutorials or templates for Vertex AI deployment.
 
 --- question 22 fill here ---
 
@@ -511,6 +604,8 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 >
 > Answer:
 
+We didn’t implement monitoring yet. To ensure reliability, we’d use Google Cloud Monitoring alongside Kubernetes to manage containers. Our app would run in one container, while a separate "sidecar" container (like Prometheus) collects metrics such as error rates, request counts, and response times. These containers communicate through Kubernetes, ensuring data flows smoothly. We’d set alerts for issues like sudden error spikes or slow performance, notifying the team to act quickly. Defining goals (e.g., “99% of requests handled in under 1 second”) would help track if the app meets user expectations. Without monitoring, silent issues—like gradual slowdowns or hidden bugs—could degrade performance over time, frustrating users. By coordinating containers and tracking metrics, we’d catch problems early, maintain stability, and scale efficiently as usage grows.
+
 --- question 26 fill here ---
 
 
@@ -530,6 +625,11 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > *costing the most was ... due to ... . Working in the cloud was ...*
 >
 > Answer:
+
+We ended up using only a small number of credits during the project due to our failure to fully configure and utilize Vertex AI for model training. We spent a little amount for storing our data.
+
+Working in the cloud was a valuable learning experience, as it highlighted the challenges of configuring cloud services and managing resources efficiently. While we didn’t fully achieve our goals, we now understand the potential of cloud platforms for scalability and collaboration.
+
 
 --- question 27 fill here ---
 
@@ -565,6 +665,23 @@ We implemented a frontend for our API using Streamlit. This was done to provide 
 > *Whenever we commit code and push to GitHub, it auto triggers ... and ... . From there the diagram shows ...*
 >
 > Answer:
+> 
+
+![](figures/diagram.png "Diagram")
+
+The starting point for a developer working on the project is the Dev branch. For developing machine learning code, we use the tsai framework. Whenever a developer creates a pull request after committing and pushing changes to the local branch, it auto-triggers GitHub Actions to check linting and code formatting. If all tests pass, another contributor reviews the changes. Once the pull request is approved, the changes can be merged from the feature branch into the main branch. This merge auto-triggers a GitHub Action that builds a Docker image based on the latest version of the repository and pushes it to the organization's GitHub Container Registry.
+
+The developer also pushes data from the source (Kaggle, in our case) to a Google Bucket and versions it using DVC.
+
+When running experiments, Hydra is used to define the experiment configuration and model parameters, and WANDB is set up to track metrics. The training job, with the correct configuration, is sent to an HPC, local machine, or cloud environment, where it is run on data pulled from the Google Bucket.
+
+Once the model is trained and performs better than the currently deployed one, a container for inference is built. This container includes the backend, frontend, and model. After deployment, Google Monitoring is used for application monitoring.
+
+Users can pull the image from the GitHub Container Registry to run the container and perform custom experiments. Additionally, users have the option to clone the repository. End-users can also send requests to the deployed API to run inference on their data.
+
+
+
+
 
 --- question 29 fill here ---
 
@@ -579,6 +696,10 @@ We implemented a frontend for our API using Streamlit. This was done to provide 
 > *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
 >
 > Answer:
+
+The biggest challenge in the project was configuring GCP for our needs, which took considerable time and effort. While we managed to set up the storage bucket successfully, we couldn’t fully integrate model training with Vertex AI due to setup issues and a lack of familiarity with the platform. Debugging these problems consumed a significant portion of our time.
+
+Another struggle was setting up continuous integration with GitHub Actions, as it required us to learn and implement workflows for linting, testing, and caching. We overcame this by thoroughly reading blogs, official documentation, and experimenting with configurations until it worked.
 
 --- question 30 fill here ---
 
@@ -599,3 +720,5 @@ We implemented a frontend for our API using Streamlit. This was done to provide 
 > Answer:
 
 Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
+Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.
+
