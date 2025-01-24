@@ -292,6 +292,13 @@ This workflow enabled parallel development, reduced conflicts, ensured through c
 >
 > Answer:
 
+We did not use DVC in this project, though it would be of great use. DVC allows for the versioning of datasets, facilitating reproducibility by pinning specific versions of data to experiments. This makes tracking and debugging much easier if something in the data or one of the preprocessing steps changes.
+
+Moreover, DVC promotes collaboration in that teams can share and synchronize datasets with remote storage; hence no manual handling of the data is required. Compatibility with Git would also have optimized our workflow in ensuring that data and code versions were unified—hence improving the consistency and traceability of the experiments.
+
+This would allow for a much more structured and scalable way of handling datasets, especially as projects get too complicated or need frequent changes in data or preprocessing pipelines.
+
+
 --- question 10 fill here ---
 
 ### Question 11 (Kazi)
@@ -339,6 +346,27 @@ An example of a triggered workflow can be seen here: https://github.com/mlops-dt
 >
 > Answer:
 
+We configured experiments using Hydra that allowed dynamic configuration management through YAML configuration files. Config files had defined parameters such as batch size, learning rate, epochs, and model architecture. That allowed us to experiment easily just by modifying the configurations without touching the core code.
+
+For instance, to run an experiment:
+```
+python train.py --config-name=config.yaml training.learning_rate=0.001 model.hidden_size=128
+```
+Example of the config file:
+
+```
+training:
+  batch_size: 32
+  epochs: 10
+  learning_rate: 0.01
+model:
+  architecture: LSTM
+  hidden_size: 64
+paths:
+  raw_folder: "data/raw"
+  model_output: "models/lstm_model.pth"
+ ``` 
+
 --- question 12 fill here ---
 
 ### Question 13 (Samyak)
@@ -353,6 +381,19 @@ An example of a triggered workflow can be seen here: https://github.com/mlops-dt
 > *one would have to do ...*
 >
 > Answer:
+
+Reproducibility has been taken care of through Hydra for configuration file management and through the log, in minute detail, of all experimental details by Weights & Biases. Every single experiment was described with a YAML config file that specifies the parameters of the experiment, such as learning rate, batch size, and model architecture. Hydra handled these configurations dynamically, and W&B logged the settings of each experiment.
+
+As such, every time an experiment is run, the following is performed:
+•	Configuration will be loaded and logged to W&B along with code version and environment details.
+•	Results and metrics should be saved along with the model artifacts and their versions.
+•	Intermediate outputs like the predictions will be generated and stored along with traceable links.
+
+Now, reproducing an experiment only entails the following:
+•	See on W&B what config and code version have been logged.
+•	Download the corresponding configuration file.
+•	Run the script again using the saved config.  >> python train.py --config-name=config.yaml
+
 
 --- question 13 fill here ---
 
@@ -554,6 +595,11 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 >
 > Answer:
 
+Yes, we wrote the API for our model using /textbf{FastAPI} to carry out inferences. This API loads a trained model once on startup. That means, by the time somebody wants to make a prediction, it has finished loading and will not delay further. It has a `/predict` endpoint where a user can input the precipitation sequence and get flood probabilities. Here, it checks for proper input by defining a Pydantic model to ensure correctly formatted inputs and avoid errors in inference.
+
+We applied pre-processing using a saved MinMaxScaler to keep the data consistent with that used in training. It also has a root endpoint, indicating whether the service is running. This allows the model to be very easily tested and used for making predictions while keeping deployment as simple and lightweight as possible.
+
+
 --- question 23 fill here ---
 
 ### Question 24 (Samyak)
@@ -570,6 +616,13 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 >
 > Answer:
 
+Yes, we have been able to deploy our API on our localhost. We wrapped our model in a service capable of receiving requests for inference using /textbf{FastAPI}. We deployed locally by using Uvicorn, a lightweight ASGI server, running the application on a specified host and port. That allowed us to test all the API functionalities on our machine just by sending requests-for example, using Postman or even `curl`.
+
+To call the service, for example, one would need to send a `POST` request to `/predict` with a JSON body specifying the precipitation sequence. The API will then handle the request by running the model and returning the output-the probability of a flood.
+
+That has not been done here, but one can also deploy this API into a cloud platform to scale and allow more users to access the API remotely.
+
+
 --- question 24 fill here ---
 
 ### Question 25 (Samyak)
@@ -584,6 +637,8 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 > *before the service crashed.*
 >
 > Answer:
+
+
 
 --- question 25 fill here ---
 
