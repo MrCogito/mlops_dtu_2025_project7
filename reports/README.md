@@ -149,7 +149,7 @@ s204145, s232883, s232924, s230208
 >
 > Answer:
 
-Come back to this one
+We used the third-party framework tsai (https://timeseriesai.github.io/tsai/) to work with time series data. This framework provided pre-implemented models like LSTM, allowing us to experiment quickly with different time series architectures without building models from scratch. Its streamlined API significantly accelerated our workflow and made trying various approaches efficient. Additionally, we used the Black code formatter to maintain code consistency and readability. While the course used Ruff, we preferred Black for its simplicity and widespread adoption. Together, these tools enhanced the project by simplifying model experimentation and ensuring well-formatted, maintainable code throughout development. We also used sklearn for data preprocessing. 
 
 ## Coding environment
 
@@ -168,6 +168,14 @@ Come back to this one
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
+
+We used requirements.txt file for managing our dependencies. The list of dependencies was inistally auto-generated using pipreqs. Then if somebody used library not included in requirements he should add it there in pull request. To get a complete copy of our development environment, one would have to run the following commands. 
+1. Copy repository
+2. Create virtual env using preferred tool eg conda: conda create --name my_environment python=3.11
+3. install requirements using: pip3 install -r requirements_dev.txt
+
+   As an alternative - one can run scripts using docker that is automatically build when there is push to main branch. To do it - person should follow instructions on README.md.
+   Current setup allows either build docker image locally or pull it from github docker registery. 
 
 --- question 4 fill here ---
 
@@ -228,6 +236,8 @@ These ideas guarantee maintainability, scalability, and seamless cooperation, wh
 >
 > Answer:
 
+In total, we have implemented 4 tests. Primarily we are testing data and model scripts as they are currently the most critical parts of our project. This includes checking if the dataset is correctly initialized, preprocessed, and saved in the correct folder. Additionally, we check if the model architecture is correct and model output has the correct shape and value ranges. 
+
 --- question 7 fill here ---
 
 ### Question 8 (Karol)
@@ -242,6 +252,10 @@ These ideas guarantee maintainability, scalability, and seamless cooperation, wh
 > *code and even if we were then...*
 >
 > Answer:
+
+The total code coverage of our code is 57%, mainly covering parts related to data processing and training. While higher coverage is good, even 100% coverage doesn’t mean the code is free of errors. Code coverage only shows that every line of code has been run during testing, but it doesn’t catch all possible issues.
+For example, tests might miss problems like unexpected inputs, edge cases, or how different parts of the system work together. Tests can also fail to check if the results are correct, giving a false sense of security.
+To make sure the code is reliable, it’s not enough to just have high coverage. The quality of the tests matters more. Good tests check for edge cases, confirm the logic is correct, and ensure the system behaves well in all situations
 
 --- question 8 fill here ---
 
@@ -379,6 +393,37 @@ As seen in the charts, the loss decreases sharply in the initial epochs and stab
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
 > Answer:
+
+ For our project we developed several images: one for training and one for deployment(handle api).
+ To run the training docker we have this instruction:
+ To get latest docker image from ghrc run:
+```bash
+docker pull ghcr.io/mlops-dtu-group7-2025/mlops_dtu_2025_project7/mlops_dtu_2025_project7:latest
+```
+
+To build docker image locally run: 
+
+```bash
+docker build -t mlops-floods -f dockerfiles/train.dockerfile .
+```
+Set wandb API key: 
+```bash
+export WANDB_API_KEY=your_wandb_api_key
+```
+Run docker container with mounted data dir:
+```bash
+docker run --rm \
+  -e WANDB_API_KEY="$WANDB_API_KEY" \
+  -v "$(pwd)/data:/data" \
+  mlops-floods
+```
+You can find our Docker container images here:
+
+[mlops_dtu_2025_project7 Docker Images](https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/pkgs/container/mlops_dtu_2025_project7%2Fmlops_dtu_2025_project7)
+
+And our dockerfiles are here:
+[mlops_dtu_2025_project7 DockerFiles](https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/tree/main/dockerfiles) 
+
 
 --- question 15 fill here ---
 
