@@ -721,3 +721,4 @@ Another struggle was setting up continuous integration with GitHub Actions, as i
 
 Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
 Student s232924 worked on Modeling and Training data, logging important events, Continious Integration on GitHub, Code structure and Linting, Google Cloud Platform (GCP) and the report.
+
