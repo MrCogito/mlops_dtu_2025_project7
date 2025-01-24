@@ -749,6 +749,10 @@ Users can pull the image from the GitHub Container Registry to run the container
 
 --- question 30 fill here ---
 
+Another challenge was configuring Hydra for dynamic configuration management, for which we had to work extensively on configuring paths and hyperparameters correctly. There were a number of path problems we encountered and resolved through debugging and iterative trial-and-error testing until configurations ran smoothly.
+
+Another challenge was setting up the FastAPI app for inference: loading a trained model and doing input validation. Carefully making sure that the input preprocessing was exactly like during training, and testing the endpoints with pytest using httpx. Testing iteratively, consulting the documentation forth and back, is how we broke through them in no time.
+
 ### Question 31 (Together)
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
@@ -765,4 +769,4 @@ Users can pull the image from the GitHub Container Registry to run the container
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
-Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report.
+Student s204145 worked on Weights & Biases (Wandb), Continious Integration, backend, frontend and the report. Student s232883 worked on Hydra configurations, Development of the FastAPI application, Unit testing for the API, Continuous Integration and the report.
