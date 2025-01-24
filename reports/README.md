@@ -62,14 +62,14 @@ will check the repositories and the code to verify your answers.
 * [ ] Setup version control for your data or part of your data (M8)
 * [x] Add command line interfaces and project commands to your code where it makes sense (M9)
 * [x] Construct one or multiple docker files for your code (M10)
-* [x] Build the docker files locally and make sure they work as intended (M10) (Karol + update readme with commands)
+* [x] Build the docker files locally and make sure they work as intended (M10) 
 * [x] Write one or multiple configurations files for your experiments (M11) 
 * [x] Used Hydra to load the configurations and manage your hyperparameters (M11)
-* [ ] X Use profiling to optimize your code (M12)   (Leave it for now)
-* [x] Use logging to log important events in your code (M14) (Kazi)
+* [ ] X Use profiling to optimize your code (M12)  
+* [x] Use logging to log important events in your code (M14) 
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
-* [ ] Consider running a hyperparameter optimization sweep (M14) (Leave it for now)
-* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15) (Leave it for now - maybe come back later )
+* [ ] Consider running a hyperparameter optimization sweep (M14)
+* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
 
 ### Week 2
 
@@ -77,15 +77,15 @@ will check the repositories and the code to verify your answers.
 * [ ] Write unit tests related to model construction and or model training (M16)
 * [ ] Calculate the code coverage (M16) (1. Karol)
 * [ ] 
-* [x] Get some continuous integration running on the GitHub repository (M17) (Kazi)
-* [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17) (Kazi)
-* [x] Add a linting step to your continuous integration (M17)  (Kazi)
-* [ ] Add pre-commit hooks to your version control setup (M18) (Leave it for now)
-* [ ] Add a continues workflow that triggers when data changes (M19) (Leave it for now)
+* [x] Get some continuous integration running on the GitHub repository (M17) 
+* [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
+* [x] Add a linting step to your continuous integration (M17) 
+* [ ] Add pre-commit hooks to your version control setup (M18)
+* [ ] Add a continues workflow that triggers when data changes (M19) 
 * [ ] 
-* [ ] Add a continues workflow that triggers when changes to the model registry is made (M19) (2. William  )
+* [x] Add a continues workflow that triggers when changes to the model registry is made (M19) 
 * [ ] 
-* [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21) (3. Kazi)
+* [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
 * [ ] Create a trigger workflow for automatically building your docker images (M21) (4. Karol )
 * [x] Get your model training in GCP using either the Engine or Vertex AI (M21) (3.Kazi )
 * [ ] Create a FastAPI application that can do inference using your model (M22) (5.Samyak )
@@ -93,7 +93,7 @@ will check the repositories and the code to verify your answers.
 * [ ] Write API tests for your application and setup continues integration for these (M24) (5.Samyak )
 * [ ] Load test your application (M24) (5. )
 * [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25) (5.Samyak )
-* [ ] Create a frontend for your API (M26) (6. William)
+* [x] Create a frontend for your API (M26)
 
 ### Week 3
 
@@ -156,7 +156,7 @@ We used the third-party framework tsai (https://timeseriesai.github.io/tsai/) to
 > In the following section we are interested in learning more about you local development environment. This includes
 > how you managed dependencies, the structure of your code and how you managed code quality.
 
-### Question 4 (Karol)
+### Question 4
 
 > **Explain how you managed dependencies in your project? Explain the process a new team member would have to go**
 > **through to get an exact copy of your environment.**
@@ -179,7 +179,7 @@ We used requirements.txt file for managing our dependencies. The list of depende
 
 --- question 4 fill here ---
 
-### Question 5 (William)
+### Question 5
 
 > **We expect that you initialized your project using the cookiecutter template. Explain the overall structure of your**
 > **code. What did you fill out? Did you deviate from the template in some way?**
@@ -199,7 +199,7 @@ We did not remove any default folders from the template but made modifications t
 
 These changes allowed us to maintain a clean and modular structure, making the project easy to navigate and extend.
 
-### Question 6 (Kazi)
+### Question 6
 
 > **Did you implement any rules for code quality and format? What about typing and documentation? Additionally,**
 > **explain with your own words why these concepts matters in larger projects.**
@@ -224,7 +224,7 @@ These ideas guarantee maintainability, scalability, and seamless cooperation, wh
 > In the following section we are interested in how version control was used in your project during development to
 > corporate and increase the quality of your code.
 
-### Question 7 (Karol)
+### Question 7
 
 > **How many tests did you implement and what are they testing in your code?**
 >
@@ -240,7 +240,7 @@ In total, we have implemented 4 tests. Primarily we are testing data and model s
 
 --- question 7 fill here ---
 
-### Question 8 (Karol)
+### Question 8
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -259,7 +259,7 @@ To make sure the code is reliable, it’s not enough to just have high coverage.
 
 --- question 8 fill here ---
 
-### Question 9 (Kazi)
+### Question 9
 
 > **Did you workflow include using branches and pull requests? If yes, explain how. If not, explain how branches and**
 > **pull request can help improve version control.**
@@ -294,7 +294,7 @@ This workflow enabled parallel development, reduced conflicts, ensured through c
 
 --- question 10 fill here ---
 
-### Question 11 (Kazi)
+### Question 11
 
 > **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
 > **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
@@ -319,8 +319,6 @@ To optimize performance, we make use of caching for Python dependencies (pip) ba
 
 An example of a triggered workflow can be seen here: https://github.com/mlops-dtu-group7-2025/mlops_dtu_2025_project7/blob/main/.github/workflows/ci.yml
 
-
---- question 11 fill here ---
 
 ## Running code and tracking experiments
 
@@ -356,7 +354,7 @@ An example of a triggered workflow can be seen here: https://github.com/mlops-dt
 
 --- question 13 fill here ---
 
-### Question 14 (William)
+### Question 14
 
 > **Upload 1 to 3 screenshots that show the experiments that you have done in W&B (or another experiment tracking**
 > **service of your choice). This may include loss graphs, logged images, hyperparameter sweeps etc. You can take**
@@ -381,7 +379,7 @@ Loss: This metric quantifies the difference between the predicted and actual val
 As seen in the charts, the loss decreases sharply in the initial epochs and stabilizes, indicating effective model training. Multiple runs with unique identifiers allow for cross-comparison of experiments, facilitating hyperparameter tuning and model selection. This process is critical for refining the model to achieve optimal performance. By using W&B, the experiments and metrics are logged efficiently, enhancing reproducibility and collaboration within the team.
 
 
-### Question 15 (Karol)
+### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
 > **experiments/project? Include how you would run your docker images and include a link to one of your docker files.**
@@ -427,7 +425,7 @@ And our dockerfiles are here:
 
 --- question 15 fill here ---
 
-### Question 16 (Kazi)
+### Question 16
 
 > **When running into bugs while trying to run your experiments, how did you perform debugging? Additionally, did you**
 > **try to profile your code or do you think it is already perfect?**
@@ -449,7 +447,7 @@ Our group had different ways of debugging. Some used print statements to find er
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17 (Kazi)
+### Question 17
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -467,10 +465,7 @@ Cloud Endpoints (API): Our REST APIs are hosted and managed by cloud endpoints (
 
 Other services we tried: compute, dataflow, notebooks, visionai, artifactregistry, datacatalog, dataform, aiplatform, dataplex.
 
-
---- question 17 fill here ---
-
-### Question 18 (Kazi)
+### Question 18
 
 > **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
 > **you used?**
@@ -486,9 +481,7 @@ Other services we tried: compute, dataflow, notebooks, visionai, artifactregistr
 We intended to use GCP's Compute Engine to run our workloads but were unable to configure the setup successfully. Despite our efforts, we couldn’t deploy the required virtual machine instances or complete the setup for our project.
 
 
---- question 18 fill here ---
-
-### Question 19 (Kazi)
+### Question 19 
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
@@ -498,9 +491,8 @@ We intended to use GCP's Compute Engine to run our workloads but were unable to 
 ![](figures/bucket-1.png "GCP Bucket")
 ![](figures/bucket-2.png "GCP Bucket")
 
---- question 19 fill here ---
 
-### Question 20 (Kazi)
+### Question 20
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.png).**
@@ -510,9 +502,7 @@ We intended to use GCP's Compute Engine to run our workloads but were unable to 
 We were unable to configure the GCP Artifact Registry setup and, as a result, did not store any Docker images.
 
 
---- question 20 fill here ---
-
-### Question 21 (Kazi)
+### Question 21 
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
@@ -521,8 +511,6 @@ We were unable to configure the GCP Artifact Registry setup and, as a result, di
 
 We were unable to configure the GCP cloud build setup and, as a result, did not store any Docker images.
 
-
---- question 21 fill here ---
 
 ### Question 22 (Kazi)
 
@@ -540,8 +528,6 @@ We were unable to configure the GCP cloud build setup and, as a result, did not 
 We attempted to train our model in the cloud using Vertex AI but were unsuccessful due to configuration challenges. Specifically, we encountered issues with setting up the required environment and dependencies on Vertex AI, which led to failures when running the training command. While we had a Docker container prepared for local runs, ensuring compatibility with Vertex AI's managed environment required additional adjustments, such as proper specification of the container image and entry points. Additionally, limitations in our familiarity with Vertex AI's orchestration and authentication processes, like IAM role configuration and artifact storage setup, further complicated the process.
 
 We chose Vertex AI because of its seamless integration with GCP and features like auto-scaling and experiment tracking. However, these same features added complexity, requiring more time to debug than we had available. In the future, we plan to address these challenges by improving our understanding of cloud-based machine learning workflows and leveraging pre-existing tutorials or templates for Vertex AI deployment.
-
---- question 22 fill here ---
 
 ## Deployment
 
@@ -591,7 +577,7 @@ We chose Vertex AI because of its seamless integration with GCP and features lik
 
 --- question 25 fill here ---
 
-### Question 26 (Karol)
+### Question 26
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -606,14 +592,12 @@ We chose Vertex AI because of its seamless integration with GCP and features lik
 
 We didn’t implement monitoring yet. To ensure reliability, we’d use Google Cloud Monitoring alongside Kubernetes to manage containers. Our app would run in one container, while a separate "sidecar" container (like Prometheus) collects metrics such as error rates, request counts, and response times. These containers communicate through Kubernetes, ensuring data flows smoothly. We’d set alerts for issues like sudden error spikes or slow performance, notifying the team to act quickly. Defining goals (e.g., “99% of requests handled in under 1 second”) would help track if the app meets user expectations. Without monitoring, silent issues—like gradual slowdowns or hidden bugs—could degrade performance over time, frustrating users. By coordinating containers and tracking metrics, we’d catch problems early, maintain stability, and scale efficiently as usage grows.
 
---- question 26 fill here ---
-
 
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 27 (Kazi) 
+### Question 27 
 
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
@@ -630,10 +614,7 @@ We ended up using only a small number of credits during the project due to our f
 
 Working in the cloud was a valuable learning experience, as it highlighted the challenges of configuring cloud services and managing resources efficiently. While we didn’t fully achieve our goals, we now understand the potential of cloud platforms for scalability and collaboration.
 
-
---- question 27 fill here ---
-
-### Question 28 (William)
+### Question 28
 
 > **Did you implement anything extra in your project that is not covered by other questions? Maybe you implemented**
 > **a frontend for your API, use extra version control features, a drift detection service, a kubernetes cluster etc.**
@@ -649,9 +630,7 @@ Working in the cloud was a valuable learning experience, as it highlighted the c
 
 We implemented a frontend for our API using Streamlit. This was done to provide users with an intuitive and interactive interface for uploading CSV files and running predictions. The frontend allows users to preview their data and visualize the prediction results without interacting with the API directly.
 
---- question 28 fill here ---
-
-### Question 29 (Karol)
+### Question 29 
 
 > **Include a figure that describes the overall architecture of your system and what services that you make use of.**
 > **You can take inspiration from [this figure](figures/overview.png). Additionally, in your own words, explain the**
@@ -681,11 +660,7 @@ Users can pull the image from the GitHub Container Registry to run the container
 
 
 
-
-
---- question 29 fill here ---
-
-### Question 30 (Together)
+### Question 30
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -701,9 +676,8 @@ The biggest challenge in the project was configuring GCP for our needs, which to
 
 Another struggle was setting up continuous integration with GitHub Actions, as it required us to learn and implement workflows for linting, testing, and caching. We overcame this by thoroughly reading blogs, official documentation, and experimenting with configurations until it worked.
 
---- question 30 fill here ---
 
-### Question 31 (Together)
+### Question 31
 
 > **State the individual contributions of each team member. This is required information from DTU, because we need to**
 > **make sure all members contributed actively to the project. Additionally, state if/how you have used generative AI**
